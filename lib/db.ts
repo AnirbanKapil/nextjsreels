@@ -1,0 +1,8 @@
+import mongoose from "mongoose"
+
+const MONGODB_URL = process.env.MONGODB_URL
+
+
+if(!MONGODB_URL){
+    throw new Error("Plz define mongoDB URL in env file")
+}
