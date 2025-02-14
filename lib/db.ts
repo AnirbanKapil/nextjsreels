@@ -24,7 +24,16 @@ export async function connectionToDatabase () {
             bufferCommands : true,
             maxPoolSize : 10
         }
-    };
+    cached.promise = mongoose.connect(MONGODB_URL,opts)
+                             .then(()=> mongoose.connection)
+    }; 
+    
+    try {
+        cached.conn = await cached.promise;
+    } catch (error) {
+        cached.promise = null;
+        throw error;
+    }
 
-    cached.promise = mongoose.connect()
+    return cached.conn;
 }
